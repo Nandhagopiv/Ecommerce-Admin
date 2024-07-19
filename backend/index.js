@@ -23,7 +23,7 @@ app.get('/submit',async(req,res)=>{
     const result = await coll.updateOne({product:where},{$set:{data:tempArr}})
     console.log(result);
     console.log(cmd,where);
-    res.send(true)
+    res.send(true);
 })
 
 app.listen(8000,async()=>{
