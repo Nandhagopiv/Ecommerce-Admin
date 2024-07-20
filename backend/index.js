@@ -10,7 +10,8 @@ app.use(cors())
 const client = new MongoClient('mongodb+srv://nandhagopy:24122000@cluster0.wfk7s1i.mongodb.net/')
 
 app.get('/submit',async(req,res)=>{
-    const {cmd,where} = req.query
+    const {cmd,ref} = req.query
+    console.log(cmd);
     const paths = cmd.split(',')
     await client.connect()
     const db = client.db('Ecommerce')
@@ -20,9 +21,8 @@ app.get('/submit',async(req,res)=>{
         return new Binary(Buffer.from(fs.readFileSync(data)))
     })
 
-    const result = await coll.updateOne({product:where},{$set:{data:tempArr}})
+    const result = await coll.updateOne({product:ref},{$set:{data:tempArr}})
     console.log(result);
-    console.log(cmd,where);
     res.send(true);
 })
 
